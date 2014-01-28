@@ -3,4 +3,5 @@ class Vote
   include Mongoid::Timestamps
 
   belongs_to :user
+  belongs_to :comment
 end
