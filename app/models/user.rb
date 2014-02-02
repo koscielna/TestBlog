@@ -12,7 +12,6 @@ class User
   validates_presence_of :encrypted_password
 
   has_many :posts
-  belongs_to :user
 
   ## Recoverable
   field :reset_password_token,   type: String

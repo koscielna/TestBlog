@@ -11,7 +11,7 @@ describe Comment do
   let(:user3) { create(:user) }
   let(:user4) { create(:user) }
 
-  it "should be market as abusive when has 3 negative votes" do
+  it "should be marked as abusive when has 3 negative votes" do
     expect {
           3.times { create(:vote, value: -1, comment: comment) }
         }.to change(comment, :abusive).from(false).to(true)
