@@ -28,6 +28,9 @@ class PostsController < ApplicationController
   end
 
   def show
+    if current_user != post.user
+      self.comments = post.comments.where(abusive: false)
+    end
   end
 
   def mark_archived
