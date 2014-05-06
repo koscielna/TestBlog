@@ -16,12 +16,12 @@ class CommentsController < ApplicationController
   end
 
   def vote_up
-    comment.votes.find_or_create_by(value: 1, user: current_user)
+    comment.votes.find_or_create_by(value: 1, user: current_user) if comment.votes.where(user: current_user).empty?
     redirect_to comment.post
   end
 
   def vote_down
-    comment.votes.find_or_create_by(value: -1, user: current_user)
+    comment.votes.find_or_create_by(value: -1, user: current_user) if comment.votes.where(user: current_user).empty?
     redirect_to comment.post
   end
 
