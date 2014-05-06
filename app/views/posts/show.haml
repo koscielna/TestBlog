@@ -3,6 +3,7 @@
     = post.title
     %small
       = post.friendly_date
+    %h5= post.user
   = link_to "edit", edit_post_path(post), class: 'post__button--edit'
 
   .post__body
@@ -12,14 +13,23 @@
       = content_tag :span, tag, class: 'tag'
 
   = simple_form_for [post, Comment.new] , html: { class: "form-horizontal" } do |f|
-    = f.input :body, as: :text, input_html: { cols: 50, rows: 3 }
+    = f.input :body, as: :text, :placeholder => 'Leave a comment', input_html: { cols: 50, rows: 3 }, label: false
     = f.button :submit
 
-  - comments.each do |comment|
-    %h4
-      .username= comment.user
-      .btn.btn-success
-        +
-      .btn.btn-danger
-        \-
-    %small= comment.body
+  %table
+    - comments.each do |comment|
+      %tr
+        %th
+        %th
+          %h3= comment.user
+      %tr
+        %td.votecell
+          = button_to '+', vote_up_post_comment_path(post, comment), class: 'btn btn-success'
+          = comment.positive_votes
+          = button_to '-', vote_down_post_comment_path(post, comment), class: 'btn btn-danger'
+          = comment.negative_votes
+        %td.commentcell.tile
+          = comment.body
+        %td.notabusivecell
+          - if comment.abusive
+            = button_to 'Not Abusive', mark_as_not_abusive_post_comment_path(post, comment), class: 'btn btn-danger'
