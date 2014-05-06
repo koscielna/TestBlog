@@ -9,9 +9,19 @@ class Comment
   belongs_to :post
   has_many :votes
 
+  validates_presence_of :body
+
   def is_abusive
     if votes.where(value: -1).count >= 3
       update_attribute(:abusive, true)
     end
+  end
+
+  def positive_votes
+    votes.where(value: 1).count
+  end
+
+  def negative_votes
+    votes.where(value: -1).count
   end
 end
