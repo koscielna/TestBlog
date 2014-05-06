@@ -40,11 +40,10 @@ class PostsController < ApplicationController
   end
 
   def create
-    if post.save
-      redirect_to action: :index
-    else
-      render :new
-    end
+    post.user = current_user
+    post.save
+
+    redirect_to action: :index
   end
 
   private
