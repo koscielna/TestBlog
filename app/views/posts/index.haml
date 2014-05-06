@@ -10,4 +10,5 @@
   - posts.each do |post|
     %li.post--short-size
       .post__title= link_to post.title, post_path(post)
+      = image_tag 'hot.png', size: "#{post.hotness*10}x#{post.hotness*10}", alt: "Hotness"
       .post__body= post.truncated_body

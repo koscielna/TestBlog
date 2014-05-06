@@ -33,6 +33,7 @@ class Post
 
     if comments.count >= 3
       htns += 1
+      htns = 3 if htns > 3
     end
 
     return htns
